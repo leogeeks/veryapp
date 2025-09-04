@@ -14,18 +14,18 @@ Route::prefix('auth')->group(function () {
     Route::post('social/{provider}', [SocialAuthController::class, 'socialLogin']);
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('auth/me', [AuthController::class, 'me']);
     Route::post('auth/logout', [AuthController::class, 'logout']);
-    // Basic users CRUD
-    Route::get('users', [UserController::class, 'index']);
-    Route::get('users/{user}', [UserController::class, 'show']);
-    Route::post('users', [UserController::class, 'store']);
-    Route::put('users/{user}', [UserController::class, 'update']);
-    Route::delete('users/{user}', [UserController::class, 'destroy']);
+    // Users CRUD (admin-only)
+    Route::middleware('isAdmin')->group(function () {
+        Route::get('users', [UserController::class, 'index']);
+        Route::get('users/{user}', [UserController::class, 'show']);
+        Route::post('users', [UserController::class, 'store']);
+        Route::put('users/{user}', [UserController::class, 'update']);
+        Route::delete('users/{user}', [UserController::class, 'destroy']);
 
-    // Admin-only
-    Route::middleware('admin')->group(function () {
+        // Admin-only management endpoints
         Route::get('admin/users', [UserAdminController::class, 'index']);
         Route::put('admin/users/{user}', [UserAdminController::class, 'update']);
         Route::delete('admin/users/{user}', [UserAdminController::class, 'destroy']);
