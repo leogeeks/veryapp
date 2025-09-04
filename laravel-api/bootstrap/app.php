@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'isAdmin' => \App\Http\Middleware\IsAdmin::class,
             'isSuperAdmin' => \App\Http\Middleware\IsSuperAdmin::class,
+            'session.expiry' => \App\Http\Middleware\SessionExpiryMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
