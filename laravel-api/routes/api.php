@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Admin\UserAdminController;
+use App\Http\Controllers\API\TaskController;
 
 Route::prefix('auth')->group(function () {
     Route::post('signup', [AuthController::class, 'signup']);
@@ -29,6 +30,15 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('admin/users', [UserAdminController::class, 'index']);
         Route::put('admin/users/{user}', [UserAdminController::class, 'update']);
         Route::delete('admin/users/{user}', [UserAdminController::class, 'destroy']);
+    });
+
+    // Tasks for logged-in user
+    Route::prefix('tasks')->group(function () {
+        Route::get('/', [TaskController::class, 'index']);
+        Route::post('/', [TaskController::class, 'store']);
+        Route::put('/{id}', [TaskController::class, 'update']);
+        Route::delete('/{id}', [TaskController::class, 'destroy']);
+        Route::patch('/{id}/complete', [TaskController::class, 'complete']);
     });
 });
 
