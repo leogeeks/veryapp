@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\Admin\UserUpdateRequest;
+use App\Http\Requests\Admin\UserStoreRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserAdminController extends Controller
@@ -27,6 +27,11 @@ class UserAdminController extends Controller
     public function create()
     {
         return view('admin.users.create');
+    }
+
+    public function edit(User $user)
+    {
+        return view('admin.users.edit', compact('user'));
     }
 
     public function store(UserStoreRequest $request)
