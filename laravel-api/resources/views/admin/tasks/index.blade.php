@@ -31,17 +31,26 @@
           <td class="px-4 py-3">{{ $task->priority }}</td>
           <td class="px-4 py-3">{!! $task->is_completed ? '<span class="text-green-600">Completed</span>' : '<span class="text-gray-600">Open</span>' !!}</td>
           <td class="px-4 py-3 text-right">
-            <a href="/admin/tasks/{{ $task->id }}/edit" class="text-primary hover:underline mr-3">Edit</a>
+            <a href="/admin/tasks/{{ $task->id }}/edit" class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-white rounded-md hover:bg-red-600">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M16.862 3.487a1.5 1.5 0 0 1 2.121 0l1.53 1.53a1.5 1.5 0 0 1 0 2.12l-9.9 9.9a1.5 1.5 0 0 1-.53.35l-4.24 1.41a.75.75 0 0 1-.948-.948l1.41-4.24a1.5 1.5 0 0 1 .35-.53l9.9-9.9Z"/></svg>
+              Edit
+            </a>
             @if(!$task->is_completed)
             <form action="/admin/tasks/{{ $task->id }}/complete" method="POST" class="inline">
               @csrf
-              <button class="text-primary hover:underline" type="submit">Mark Complete</button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 bg-green-500 text-white rounded-md hover:bg-green-600" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M9 12.75 11.25 15l3.75-4.5"/><path d="M21 6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75v10.5A2.25 2.25 0 0 0 5.25 19.5h13.5A2.25 2.25 0 0 0 21 17.25V6.75Z"/></svg>
+                Complete
+              </button>
             </form>
             @endif
             <form action="/admin/tasks/{{ $task->id }}" method="POST" class="inline" onsubmit="return confirm('Delete task?')">
               @csrf
               @method('DELETE')
-              <button class="text-red-600 hover:underline ml-2" type="submit">Delete</button>
+              <button class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300" type="submit">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M9 3.75h6a.75.75 0 0 1 .75.75V6h3a.75.75 0 0 1 0 1.5h-.71l-1.1 12.02A2.25 2.25 0 0 1 14.69 21H9.31a2.25 2.25 0 0 1-2.25-2.48L5.96 7.5H5.25A.75.75 0 0 1 5.25 6h3V4.5a.75.75 0 0 1 .75-.75Z"/></svg>
+                Delete
+              </button>
             </form>
           </td>
         </tr>
