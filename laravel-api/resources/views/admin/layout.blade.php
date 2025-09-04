@@ -41,17 +41,37 @@
       </div>
     </nav>
     <div class="flex">
-      <aside class="w-64 bg-white border-r-2 border-primary/30 hidden md:block min-h-[calc(100vh-4rem)]">
+      <aside class="w-64 bg-white border-r border-gray-200 hidden md:block min-h-[calc(100vh-4rem)]">
         <nav class="p-4 space-y-1">
-          <a href="/admin/dashboard" class="block px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary">Dashboard</a>
-          <a href="/admin/users" class="block px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary">Users</a>
+          <a href="/admin/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary {{ request()->is('admin/dashboard') ? 'bg-primary text-white hover:text-white' : '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M11.47 3.84a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 1-1.06 1.06l-.91-.91V19.5A2.25 2.25 0 0 1 17 21.75H7A2.25 2.25 0 0 1 4.75 19.5v-6.82l-.91.91a.75.75 0 0 1-1.06-1.06l8.69-8.69Z"/></svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="/admin/users" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary {{ request()->is('admin/users*') ? 'bg-primary text-white hover:text-white' : '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M7.5 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 20.25a7.5 7.5 0 1 1 15 0v.75H2.25v-.75Z"/><path d="M17.25 7.5a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0ZM15.75 21v-.75a6 6 0 0 1 9 0V21h-9Z"/></svg>
+            <span>Users</span>
+          </a>
+          <a href="/admin/tasks" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary {{ request()->is('admin/tasks*') ? 'bg-primary text-white hover:text-white' : '' }}">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M9 12.75 11.25 15l3.75-4.5M21 6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75v10.5A2.25 2.25 0 0 0 5.25 19.5h13.5A2.25 2.25 0 0 0 21 17.25V6.75Z"/></svg>
+            <span>Tasks</span>
+          </a>
         </nav>
       </aside>
       <div class="md:hidden" x-show="sidebarOpen" @click.away="sidebarOpen=false">
-        <aside class="w-64 bg-white border-r-2 border-primary/30 fixed top-16 bottom-0">
+        <aside class="w-64 bg-white border-r border-gray-200 fixed top-16 bottom-0">
           <nav class="p-4 space-y-1">
-            <a href="/admin/dashboard" class="block px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary">Dashboard</a>
-            <a href="/admin/users" class="block px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary">Users</a>
+            <a href="/admin/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary {{ request()->is('admin/dashboard') ? 'bg-primary text-white hover:text-white' : '' }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M11.47 3.84a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 1-1.06 1.06l-.91-.91V19.5A2.25 2.25 0 0 1 17 21.75H7A2.25 2.25 0 0 1 4.75 19.5v-6.82l-.91.91a.75.75 0 0 1-1.06-1.06l8.69-8.69Z"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="/admin/users" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary {{ request()->is('admin/users*') ? 'bg-primary text-white hover:text-white' : '' }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M7.5 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 20.25a7.5 7.5 0 1 1 15 0v.75H2.25v-.75Z"/><path d="M17.25 7.5a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0ZM15.75 21v-.75a6 6 0 0 1 9 0V21h-9Z"/></svg>
+              <span>Users</span>
+            </a>
+            <a href="/admin/tasks" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 hover:text-primary {{ request()->is('admin/tasks*') ? 'bg-primary text-white hover:text-white' : '' }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5"><path d="M9 12.75 11.25 15l3.75-4.5M21 6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75v10.5A2.25 2.25 0 0 0 5.25 19.5h13.5A2.25 2.25 0 0 0 21 17.25V6.75Z"/></svg>
+              <span>Tasks</span>
+            </a>
           </nav>
         </aside>
       </div>
