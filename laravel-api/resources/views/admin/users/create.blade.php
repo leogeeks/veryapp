@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('admin_content')
   <h2 class="text-xl font-semibold mb-4">Create User</h2>
