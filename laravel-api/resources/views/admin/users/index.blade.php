@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@extends('admin.layout')
 
-@section('content')
+@section('admin_content')
   <div class="d-flex align-items-center justify-content-between mt-3 mb-3">
     <h2>Users</h2>
   </div>

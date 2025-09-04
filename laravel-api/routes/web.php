@@ -17,9 +17,10 @@ Route::middleware('web')->group(function () {
 });
 
 // Admin Panel (only for role admin or super_admin)
-Route::middleware(['web', 'auth', 'isAdmin'])->group(function () {
-    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
-    Route::get('/admin/users', [ManageUsersController::class, 'index']);
-    Route::post('/admin/users/{id}/make-admin', [ManageUsersController::class, 'makeAdmin']);
-    Route::post('/admin/users/{id}/remove-admin', [ManageUsersController::class, 'removeAdmin']);
+Route::prefix('admin')->middleware(['web', 'auth', 'isAdmin'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/users', [ManageUsersController::class, 'index']);
+    Route::get('/users/{id}/edit', [ManageUsersController::class, 'edit']);
+    Route::post('/users/{id}/make-admin', [ManageUsersController::class, 'makeAdmin']);
+    Route::post('/users/{id}/remove-admin', [ManageUsersController::class, 'removeAdmin']);
 });
