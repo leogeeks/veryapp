@@ -1,11 +1,15 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('admin_content')
-  <h2 class="text-xl font-semibold mb-4">Edit Task #{{ $task->id }}</h2>
-  <form method="POST" action="/admin/tasks/{{ $task->id }}">
-    @csrf
-    @method('PUT')
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="bg-white rounded-xl shadow-sm">
+    <div class="px-6 py-4 border-b border-gray-100">
+      <h2 class="text-lg font-semibold text-gray-900">Edit Task #{{ $task->id }}</h2>
+    </div>
+    <div class="p-6">
+      <form method="POST" action="/admin/tasks/{{ $task->id }}">
+        @csrf
+        @method('PUT')
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label class="block text-sm font-medium text-gray-700">User</label>
         <select name="user_id" class="w-full h-12 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#f04848] focus:outline-none">
@@ -55,11 +59,13 @@
         </label>
         @error('is_completed')<p class="text-sm text-red-600 mt-1">{{ $message }}</p>@enderror
       </div>
+        </div>
+        <div class="mt-6 flex items-center gap-3">
+          <button class="px-4 py-2 rounded-lg bg-primary text-white font-semibold shadow-sm hover:bg-primaryDark">Save</button>
+          <a href="/admin/tasks" class="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 shadow-sm hover:bg-gray-50">Cancel</a>
+        </div>
+      </form>
     </div>
-    <div class="mt-6">
-      <button class="px-4 py-2 rounded-lg bg-primary text-white font-semibold hover:bg-primaryDark">Save</button>
-      <a href="/admin/tasks" class="ml-2 text-gray-700 hover:underline">Cancel</a>
-    </div>
-  </form>
+  </div>
 @endsection
 

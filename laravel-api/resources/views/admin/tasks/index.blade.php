@@ -1,29 +1,34 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
 @section('admin_content')
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="text-xl font-semibold">Tasks</h2>
-    <a href="/admin/tasks/create" class="inline-flex items-center px-3 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primaryDark">Create Task</a>
-  </div>
-  <form method="GET" class="mb-4">
-    <input type="text" name="q" value="{{ request('q') }}" placeholder="Search tasks..." class="w-full md:w-64 rounded-lg border-gray-300 focus:border-primary focus:ring-primary" />
-  </form>
-  <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
-    <table class="min-w-full divide-y divide-gray-200 text-sm">
-      <thead class="bg-gray-50">
-        <tr>
-          <th class="px-4 py-3 text-left font-medium text-gray-700">ID</th>
-          <th class="px-4 py-3 text-left font-medium text-gray-700">Title</th>
-          <th class="px-4 py-3 text-left font-medium text-gray-700">User</th>
-          <th class="px-4 py-3 text-left font-medium text-gray-700">Category</th>
-          <th class="px-4 py-3 text-left font-medium text-gray-700">Priority</th>
-          <th class="px-4 py-3 text-left font-medium text-gray-700">Status</th>
-          <th class="px-4 py-3 text-right font-medium text-gray-700">Actions</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-100 bg-white">
-        @foreach($tasks as $task)
-        <tr>
+  <div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <div class="px-6 py-4 flex items-center justify-between border-b border-gray-100">
+      <h2 class="text-lg font-semibold text-gray-900">Tasks</h2>
+      <a href="/admin/tasks/create" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-primary text-white text-sm font-semibold shadow-sm hover:bg-primaryDark">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5a.75.75 0 0 1 .75.75v6h6a.75.75 0 0 1 0 1.5h-6v6a.75.75 0 0 1-1.5 0v-6h-6a.75.75 0 0 1 0-1.5h6v-6A.75.75 0 0 1 12 4.5Z"/></svg>
+        Add New
+      </a>
+    </div>
+    <div class="px-6 py-4">
+      <form method="GET" class="mb-4">
+        <input type="text" name="q" value="{{ request('q') }}" placeholder="Search tasks..." class="w-full md:w-64 h-10 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#f04848] focus:outline-none" />
+      </form>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-4 py-3 text-left font-bold text-xs tracking-wider uppercase text-gray-600">ID</th>
+              <th class="px-4 py-3 text-left font-bold text-xs tracking-wider uppercase text-gray-600">Title</th>
+              <th class="px-4 py-3 text-left font-bold text-xs tracking-wider uppercase text-gray-600">User</th>
+              <th class="px-4 py-3 text-left font-bold text-xs tracking-wider uppercase text-gray-600">Category</th>
+              <th class="px-4 py-3 text-left font-bold text-xs tracking-wider uppercase text-gray-600">Priority</th>
+              <th class="px-4 py-3 text-left font-bold text-xs tracking-wider uppercase text-gray-600">Status</th>
+              <th class="px-4 py-3 text-right font-bold text-xs tracking-wider uppercase text-gray-600">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 bg-white">
+            @foreach($tasks as $task)
+            <tr class="hover:bg-gray-50">
           <td class="px-4 py-3">{{ $task->id }}</td>
           <td class="px-4 py-3">{{ $task->title }}</td>
           <td class="px-4 py-3">{{ $task->user?->name }}</td>
@@ -31,7 +36,7 @@
           <td class="px-4 py-3">{{ $task->priority }}</td>
           <td class="px-4 py-3">{!! $task->is_completed ? '<span class="text-green-600">Completed</span>' : '<span class="text-gray-600">Open</span>' !!}</td>
           <td class="px-4 py-3 text-right">
-            <a href="/admin/tasks/{{ $task->id }}/edit" class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-white rounded-md hover:bg-red-600">
+            <a href="/admin/tasks/{{ $task->id }}/edit" class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary text-white rounded-md hover:bg-red-600 mr-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M16.862 3.487a1.5 1.5 0 0 1 2.121 0l1.53 1.53a1.5 1.5 0 0 1 0 2.12l-9.9 9.9a1.5 1.5 0 0 1-.53.35l-4.24 1.41a.75.75 0 0 1-.948-.948l1.41-4.24a1.5 1.5 0 0 1 .35-.53l9.9-9.9Z"/></svg>
               Edit
             </a>
@@ -58,6 +63,8 @@
       </tbody>
     </table>
   </div>
-  <div class="mt-4">{{ $tasks->withQueryString()->links() }}</div>
+    <div class="mt-4">{{ $tasks->withQueryString()->links() }}</div>
+    </div>
+  </div>
 @endsection
 
