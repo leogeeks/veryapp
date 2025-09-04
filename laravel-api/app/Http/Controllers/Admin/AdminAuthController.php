@@ -22,6 +22,7 @@ class AdminAuthController extends Controller
 
         if (Auth::guard('web')->attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+            $request->session()->put('was_authenticated', true);
             return redirect()->intended('/admin/dashboard');
         }
 

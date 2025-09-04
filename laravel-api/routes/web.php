@@ -17,10 +17,14 @@ Route::middleware('web')->group(function () {
 });
 
 // Admin Panel (only for role admin or super_admin)
-Route::prefix('admin')->middleware(['web', 'auth', 'isAdmin'])->group(function () {
+Route::prefix('admin')->middleware(['web', 'session.expiry', 'auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
-    Route::get('/users', [ManageUsersController::class, 'index']);
-    Route::get('/users/{id}/edit', [ManageUsersController::class, 'edit']);
+    Route::get('/users', [\App\Http\Controllers\Admin\UserAdminController::class, 'index']);
+    Route::get('/users/create', [\App\Http\Controllers\Admin\UserAdminController::class, 'create']);
+    Route::post('/users', [\App\Http\Controllers\Admin\UserAdminController::class, 'store']);
+    Route::get('/users/{user}/edit', [\App\Http\Controllers\Admin\UserAdminController::class, 'edit']);
+    Route::put('/users/{user}', [\App\Http\Controllers\Admin\UserAdminController::class, 'update']);
+    Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserAdminController::class, 'destroy']);
     Route::post('/users/{id}/make-admin', [ManageUsersController::class, 'makeAdmin']);
     Route::post('/users/{id}/remove-admin', [ManageUsersController::class, 'removeAdmin']);
 });
