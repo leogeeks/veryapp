@@ -3,10 +3,10 @@
 @section('admin_content')
   <div class="flex items-center justify-between mt-2 mb-4">
     <h2 class="text-xl font-semibold">Users</h2>
-    <a href="/admin/users/create" class="inline-flex items-center px-3 py-2 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">Create User</a>
+    <a href="/admin/users/create" class="inline-flex items-center px-3 py-2 rounded-lg bg-primary text-white text-sm font-semibold hover:bg-primaryDark">Create User</a>
   </div>
   <form method="GET" class="mb-4">
-    <input type="text" name="q" value="{{ request('q') }}" placeholder="Search users..." class="w-full md:w-64 rounded border-gray-300" />
+    <input type="text" name="q" value="{{ request('q') }}" placeholder="Search users..." class="w-full md:w-64 rounded-lg border-gray-300 focus:border-primary focus:ring-primary" />
   </form>
   <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
     <table class="min-w-full divide-y divide-gray-200 text-sm">

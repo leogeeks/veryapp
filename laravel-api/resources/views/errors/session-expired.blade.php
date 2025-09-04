@@ -16,7 +16,7 @@
     </div>
     <h1 class="text-2xl font-semibold text-gray-900">Your session has expired</h1>
     <p class="mt-2 text-gray-600">Please log in again to continue.</p>
-    <a href="/admin/login" class="inline-flex items-center justify-center mt-6 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Go to Login</a>
+    <a href="/admin/login" class="inline-flex items-center justify-center mt-6 px-4 py-2 rounded-lg bg-[#f04848] text-white hover:bg-[#cc3d3d] font-semibold">Go to Login</a>
     <p class="mt-2 text-sm text-gray-500">Redirecting in <span id="count">5</span>…</p>
   </div>
   <script>
