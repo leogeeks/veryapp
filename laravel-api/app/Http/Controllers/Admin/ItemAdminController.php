@@ -29,7 +29,7 @@ class ItemAdminController extends Controller
         $data = $request->validated();
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/items');
-            $data['image'] = basename($path);
+            $data['image'] = str_replace('public/', '', $path);
         }
         Item::create($data);
         return redirect('/admin/grocery/items')->with('status', 'Item created');
@@ -46,7 +46,7 @@ class ItemAdminController extends Controller
         $data = $request->validated();
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('public/items');
-            $data['image'] = basename($path);
+            $data['image'] = str_replace('public/', '', $path);
         }
         $item->update($data);
         return redirect('/admin/grocery/items/'.$item->id.'/edit')->with('status', 'Updated');
