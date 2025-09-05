@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ sidebarOpen: false, userMenu: false }" class="h-full bg-gray-50">
+<html lang="en" x-data="{ sidebarOpen: false, userMenu: false, groceryOpen: false }" class="h-full bg-gray-50">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -55,7 +55,7 @@
     <div class="flex">
       <!-- Sidebar -->
       <aside class="w-64 bg-white border-r border-gray-200 hidden md:block min-h-[calc(100vh-4rem)]">
-        <nav class="p-4 space-y-1">
+        <nav class="p-4 space-y-1" x-init="$nextTick(() => { if (window.location.pathname.startsWith('/admin/grocery')) groceryOpen = true })">
           <a href="/admin/dashboard" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/dashboard') ? 'bg-primary text-white font-semibold' : '' }}">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M11.47 3.84a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 1-1.06 1.06l-.91-.91V19.5A2.25 2.25 0 0 1 17 21.75H7A2.25 2.25 0 0 1 4.75 19.5v-6.82l-.91.91a.75.75 0 0 1-1.06-1.06l8.69-8.69Z"/></svg>
             <span>Dashboard</span>
@@ -69,15 +69,23 @@
             <span>Tasks</span>
           </a>
           <div class="mt-4">
-            <div class="px-3 text-xs uppercase tracking-wider text-gray-500 mb-2">Grocery</div>
-            <a href="/admin/grocery/categories" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery/categories*') ? 'bg-primary text-white font-semibold' : '' }}">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 6.75A2.25 2.25 0 0 1 6.75 4.5h10.5A2.25 2.25 0 0 1 19.5 6.75v10.5A2.25 2.25 0 0 1 17.25 19.5H6.75A2.25 2.25 0 0 1 4.5 17.25V6.75Z"/></svg>
-              <span>Categories</span>
-            </a>
-            <a href="/admin/grocery/items" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery/items*') ? 'bg-primary text-white font-semibold' : '' }}">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 7.5A1.5 1.5 0 0 1 7.5 6h9A1.5 1.5 0 0 1 18 7.5v9A1.5 1.5 0 0 1 16.5 18h-9A1.5 1.5 0 0 1 6 16.5v-9Z"/></svg>
-              <span>Items</span>
-            </a>
+            <button type="button" @click="groceryOpen = !groceryOpen" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery*') ? 'bg-primary text-white font-semibold' : '' }}">
+              <span class="flex items-center gap-3">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3 6h18l-1.5 9.75A2.25 2.25 0 0 1 17.26 18H8.24a2.25 2.25 0 0 1-2.22-1.88L4.5 6Z"/><path d="M9 20.25a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm9 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/></svg>
+                <span>Grocery</span>
+              </span>
+              <svg class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor" :class="{'rotate-180': groceryOpen}"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
+            </button>
+            <div class="mt-1 space-y-1" x-show="groceryOpen" x-collapse>
+              <a href="/admin/grocery/categories" class="flex items-center gap-3 ml-6 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery/categories*') ? 'bg-primary text-white font-semibold' : '' }}">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M3.75 6A2.25 2.25 0 0 1 6 3.75h12A2.25 2.25 0 0 1 20.25 6v12A2.25 2.25 0 0 1 18 20.25H6A2.25 2.25 0 0 1 3.75 18V6Z"/></svg>
+                <span>Categories</span>
+              </a>
+              <a href="/admin/grocery/items" class="flex items-center gap-3 ml-6 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery/items*') ? 'bg-primary text-white font-semibold' : '' }}">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 7.5A1.5 1.5 0 0 1 7.5 6h9A1.5 1.5 0 0 1 18 7.5v9A1.5 1.5 0 0 1 16.5 18h-9A1.5 1.5 0 0 1 6 16.5v-9Z"/></svg>
+                <span>Items</span>
+              </a>
+            </div>
           </div>
           <a href="/admin/settings" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/settings*') ? 'bg-primary text-white font-semibold' : '' }}">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 6a4.5 4.5 0 1 1 3 8.485V18a1.5 1.5 0 1 1-3 0v-3.515A4.5 4.5 0 0 1 10.5 6Z"/></svg>
