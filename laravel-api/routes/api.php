@@ -6,6 +6,7 @@ use App\Http\Controllers\SocialAuthController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Admin\UserAdminController;
 use App\Http\Controllers\API\TaskController;
+use App\Http\Controllers\API\GroceryController;
 
 Route::prefix('auth')->group(function () {
     Route::post('signup', [AuthController::class, 'signup']);
@@ -39,6 +40,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/{id}', [TaskController::class, 'update']);
         Route::delete('/{id}', [TaskController::class, 'destroy']);
         Route::patch('/{id}/complete', [TaskController::class, 'complete']);
+    });
+
+    // Grocery read-only endpoints
+    Route::prefix('grocery')->group(function () {
+        Route::get('/categories', [GroceryController::class, 'categories']);
+        Route::get('/categories/{id}/items', [GroceryController::class, 'categoryItems']);
     });
 });
 

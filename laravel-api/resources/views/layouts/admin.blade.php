@@ -68,6 +68,17 @@
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M9 12.75 11.25 15l3.75-4.5M21 6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75v10.5A2.25 2.25 0 0 0 5.25 19.5h13.5A2.25 2.25 0 0 0 21 17.25V6.75Z"/></svg>
             <span>Tasks</span>
           </a>
+          <div class="mt-4">
+            <div class="px-3 text-xs uppercase tracking-wider text-gray-500 mb-2">Grocery</div>
+            <a href="/admin/grocery/categories" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery/categories*') ? 'bg-primary text-white font-semibold' : '' }}">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 6.75A2.25 2.25 0 0 1 6.75 4.5h10.5A2.25 2.25 0 0 1 19.5 6.75v10.5A2.25 2.25 0 0 1 17.25 19.5H6.75A2.25 2.25 0 0 1 4.5 17.25V6.75Z"/></svg>
+              <span>Categories</span>
+            </a>
+            <a href="/admin/grocery/items" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/grocery/items*') ? 'bg-primary text-white font-semibold' : '' }}">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M6 7.5A1.5 1.5 0 0 1 7.5 6h9A1.5 1.5 0 0 1 18 7.5v9A1.5 1.5 0 0 1 16.5 18h-9A1.5 1.5 0 0 1 6 16.5v-9Z"/></svg>
+              <span>Items</span>
+            </a>
+          </div>
           <a href="/admin/settings" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/settings*') ? 'bg-primary text-white font-semibold' : '' }}">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 6a4.5 4.5 0 1 1 3 8.485V18a1.5 1.5 0 1 1-3 0v-3.515A4.5 4.5 0 0 1 10.5 6Z"/></svg>
             <span>Settings</span>
