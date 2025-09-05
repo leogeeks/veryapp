@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ManageUsersController;
 use App\Http\Controllers\Admin\TaskAdminController;
+use App\Http\Controllers\Admin\CategoryAdminController;
+use App\Http\Controllers\Admin\ItemAdminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,4 +39,23 @@ Route::prefix('admin')->middleware(['web', 'session.expiry', 'auth', 'isAdmin'])
     Route::put('/tasks/{task}', [TaskAdminController::class, 'update']);
     Route::delete('/tasks/{task}', [TaskAdminController::class, 'destroy']);
     Route::post('/tasks/{task}/complete', [TaskAdminController::class, 'complete']);
+
+    // Grocery (restrict optionally to super admin with isSuperAdmin if needed)
+    Route::prefix('grocery')->group(function () {
+        // Categories
+        Route::get('/categories', [CategoryAdminController::class, 'index']);
+        Route::get('/categories/create', [CategoryAdminController::class, 'create']);
+        Route::post('/categories', [CategoryAdminController::class, 'store']);
+        Route::get('/categories/{category}/edit', [CategoryAdminController::class, 'edit']);
+        Route::put('/categories/{category}', [CategoryAdminController::class, 'update']);
+        Route::delete('/categories/{category}', [CategoryAdminController::class, 'destroy']);
+
+        // Items
+        Route::get('/items', [ItemAdminController::class, 'index']);
+        Route::get('/items/create', [ItemAdminController::class, 'create']);
+        Route::post('/items', [ItemAdminController::class, 'store']);
+        Route::get('/items/{item}/edit', [ItemAdminController::class, 'edit']);
+        Route::put('/items/{item}', [ItemAdminController::class, 'update']);
+        Route::delete('/items/{item}', [ItemAdminController::class, 'destroy']);
+    });
 });
