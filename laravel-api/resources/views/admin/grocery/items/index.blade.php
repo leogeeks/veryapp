@@ -27,9 +27,9 @@
               <td class="px-4 py-3">{{ $item->id }}</td>
               <td class="px-4 py-3">
                 @if($item->image)
-                  <img src="/storage/items/{{ $item->image }}" alt="{{ $item->title }}" class="w-12 h-12 object-cover rounded-md border" />
+                  <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-[50px] h-[50px] object-cover rounded-md border" />
                 @else
-                  <span class="text-gray-500">—</span>
+                  <span class="text-gray-500">No Image</span>
                 @endif
               </td>
               <td class="px-4 py-3">{{ $item->title }}</td>
