@@ -8,41 +8,58 @@ use App\Models\User;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Exceptions\BusinessException;
 
 class UserController extends Controller
 {
     public function index()
     {
-        return response()->json(User::paginate(15));
+        try {
+            return $this->successResponse(User::paginate(15));
+        } catch (\Throwable $e) {
+            throw new BusinessException('Unable to fetch users');
+        }
     }
 
     public function show(User $user)
     {
-        return response()->json($user);
+        return $this->successResponse($user);
     }
 
     public function store(UserStoreRequest $request)
     {
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $user = User::create($data);
-        return response()->json($user, 201);
+        try {
+            $data = $request->validated();
+            $data['password'] = Hash::make($data['password']);
+            $user = User::create($data);
+            return $this->successResponse($user, 'Created', 201);
+        } catch (\Throwable $e) {
+            throw new BusinessException('Unable to create user');
+        }
     }
 
     public function update(UserUpdateRequest $request, User $user)
     {
-        $data = $request->validated();
-        if (isset($data['password'])) {
-            $data['password'] = Hash::make($data['password']);
+        try {
+            $data = $request->validated();
+            if (isset($data['password'])) {
+                $data['password'] = Hash::make($data['password']);
+            }
+            $user->update($data);
+            return $this->successResponse($user);
+        } catch (\Throwable $e) {
+            throw new BusinessException('Unable to update user');
         }
-        $user->update($data);
-        return response()->json($user);
     }
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return response()->json(['message' => 'Deleted']);
+        try {
+            $user->delete();
+            return $this->successResponse(null, 'Deleted');
+        } catch (\Throwable $e) {
+            throw new BusinessException('Unable to delete user');
+        }
     }
 }
 
