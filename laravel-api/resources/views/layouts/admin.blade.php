@@ -10,19 +10,35 @@
       theme: {
         extend: {
           colors: {
-            primary: '#f04848',
-            primaryDark: '#d93636',
+            primary: '#ff2d20',
+            primaryDark: '#e0261c',
           }
         }
       }
     }
   </script>
+  <style>
+    :root { --primary: #ff2d20; --primary-dark: #e0261c; }
+    /* Buttons */
+    .btn-primary { background: var(--primary); color: #fff; border-radius: 0.5rem; padding: 0.5rem 0.875rem; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-primary:focus { outline: 2px solid rgba(255,45,32,0.35); outline-offset: 2px; }
+    /* Inputs */
+    .form-input, .form-select, .form-textarea { background:#fff; border:1px solid #e5e7eb; border-radius:0.5rem; padding:0.5rem 0.75rem; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,45,32,0.15); outline: none; }
+    /* Tables */
+    .table { width:100%; border-collapse: collapse; }
+    .table thead th { background:#fff5f4; color:#6b7280; font-weight:600; text-align:left; padding:0.75rem; border-bottom:1px solid #f3f4f6; }
+    .table tbody td { padding:0.75rem; border-bottom:1px solid #f3f4f6; }
+    /* Subtle navbar underline */
+    .navbar-border { border-bottom: 1px solid rgba(255,45,32,0.12); }
+  </style>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="h-full">
   <div class="min-h-full">
     <!-- Topbar -->
-    <nav class="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <nav class="bg-white navbar-border sticky top-0 z-40">
       <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
           <div class="flex items-center gap-3">
@@ -87,7 +103,7 @@
               </a>
             </div>
           </div>
-          <a href="/admin/settings" class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100 {{ request()->is('admin/settings*') ? 'bg-primary text-white font-semibold' : '' }}">
+          <a href="/admin/settings" class="flex items-center gap-3 px-3 py-2 rounded-lg text-white hover:bg-primaryDark {{ request()->is('admin/settings*') ? 'bg-primaryDark font-semibold' : '' }}">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M10.5 6a4.5 4.5 0 1 1 3 8.485V18a1.5 1.5 0 1 1-3 0v-3.515A4.5 4.5 0 0 1 10.5 6Z"/></svg>
             <span>Settings</span>
           </a>
