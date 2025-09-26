@@ -5,37 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
 
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#ff2d20',
-            primaryDark: '#e0261c',
+  @php($hasManifest = file_exists(public_path('build/manifest.json')))
+  @if($hasManifest)
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @else
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff2d20',
+              primaryHover: '#e62b1d'
+            }
           }
         }
       }
-    }
-  </script>
-  <style>
-    :root { --primary: #ff2d20; --primary-dark: #e0261c; }
-    /* Buttons */
-    .btn-primary { background: var(--primary); color: #fff; border-radius: 0.5rem; padding: 0.5rem 0.875rem; font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-primary:focus { outline: 2px solid rgba(255,45,32,0.35); outline-offset: 2px; }
-    /* Inputs */
-    .form-input, .form-select, .form-textarea { background:#fff; border:1px solid #e5e7eb; border-radius:0.5rem; padding:0.5rem 0.75rem; }
-    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(255,45,32,0.15); outline: none; }
-    /* Tables */
-    .table { width:100%; border-collapse: collapse; }
-    .table thead th { background:#fff5f4; color:#6b7280; font-weight:600; text-align:left; padding:0.75rem; border-bottom:1px solid #f3f4f6; }
-    .table tbody td { padding:0.75rem; border-bottom:1px solid #f3f4f6; }
-    /* Subtle navbar underline */
-    .navbar-border { border-bottom: 1px solid rgba(255,45,32,0.12); }
-  </style>
+    </script>
+    <style>
+      :root { --input-border: #dddddd; --sidebar-text:#333333; }
+      .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border-radius:.5rem; padding:.5rem 1rem; font-weight:600; font-size:.875rem; }
+      .btn-primary { background:#ff2d20; color:#fff; }
+      .btn-primary:hover { background:#e62b1d; }
+      .btn-secondary { background:#fff; color:#374151; border:1px solid #d1d5db; }
+      .btn-secondary:hover { background:#f9fafb; }
+      .btn-muted { background:#e5e7eb; color:#374151; }
+      .btn-muted:hover { background:#d1d5db; }
+      .card { background:#fff; border-radius:.75rem; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+      .table-header { background:#ff2d20; color:#fff; }
+      .input { width:100%; border:1px solid var(--input-border); background:#fff; border-radius:.5rem; padding:.5rem .75rem; }
+      .alert { border-radius:.5rem; padding:.75rem 1rem; font-size:.875rem; }
+      .alert-success { border:1px solid #bbf7d0; background:#f0fdf4; color:#166534; }
+      .alert-error { border:1px solid #fecaca; background:#fef2f2; color:#991b1b; }
+      .alert-info { border:1px solid #bfdbfe; background:#eff6ff; color:#1e40af; }
+    </style>
+  @endif
 
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -44,7 +48,6 @@
   </style>
   @stack('head')
   @yield('head')
-  @vite([])
 </head>
 <body class="h-full">
   <div class="min-h-full">
