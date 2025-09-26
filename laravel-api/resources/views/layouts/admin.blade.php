@@ -4,7 +4,41 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Panel</title>
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @php($hasManifest = file_exists(public_path('build/manifest.json')))
+  @if($hasManifest)
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @else
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#ff2d20',
+              primaryHover: '#e62b1d'
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      :root { --input-border: #dddddd; --sidebar-text:#333333; }
+      .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; border-radius:.5rem; padding:.5rem 1rem; font-weight:600; font-size:.875rem; }
+      .btn-primary { background:#ff2d20; color:#fff; }
+      .btn-primary:hover { background:#e62b1d; }
+      .btn-secondary { background:#fff; color:#374151; border:1px solid #d1d5db; }
+      .btn-secondary:hover { background:#f9fafb; }
+      .btn-muted { background:#e5e7eb; color:#374151; }
+      .btn-muted:hover { background:#d1d5db; }
+      .card { background:#fff; border-radius:.75rem; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+      .table-header { background:#ff2d20; color:#fff; }
+      .input { width:100%; border:1px solid var(--input-border); background:#fff; border-radius:.5rem; padding:.5rem .75rem; }
+      .alert { border-radius:.5rem; padding:.75rem 1rem; font-size:.875rem; }
+      .alert-success { border:1px solid #bbf7d0; background:#f0fdf4; color:#166534; }
+      .alert-error { border:1px solid #fecaca; background:#fef2f2; color:#991b1b; }
+      .alert-info { border:1px solid #bfdbfe; background:#eff6ff; color:#1e40af; }
+    </style>
+  @endif
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <style>
@@ -12,7 +46,6 @@
   </style>
   @stack('head')
   @yield('head')
-  @vite([])
 </head>
 <body class="h-full">
   <div class="min-h-full">
