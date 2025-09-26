@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Item;
+use App\Exceptions\BusinessException;
 
 class GroceryController extends Controller
 {
@@ -13,9 +14,9 @@ class GroceryController extends Controller
     {
         try {
             $categories = Category::orderBy('title')->get();
-            return response()->json(['success' => true, 'data' => $categories]);
+            return $this->successResponse($categories);
         } catch (\Throwable $e) {
-            return response()->json(['success' => false, 'message' => 'Unable to fetch categories'], 500);
+            throw new BusinessException('Unable to fetch categories');
         }
     }
 
@@ -24,9 +25,11 @@ class GroceryController extends Controller
         try {
             $category = Category::findOrFail($id);
             $items = Item::where('category_id', $category->id)->get();
-            return response()->json(['success' => true, 'data' => $items]);
+            return $this->successResponse($items);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            throw new \App\Exceptions\NotFoundBusinessException('Category not found');
         } catch (\Throwable $e) {
-            return response()->json(['success' => false, 'message' => 'Category not found'], 404);
+            throw new BusinessException('Unable to fetch category items');
         }
     }
 }
